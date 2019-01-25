@@ -12,20 +12,21 @@ ASquare::ASquare()
 	Box->SetBoxExtent(FVector(300, 300, 50));
 	RootComponent = Box;
 
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	if (Mesh != nullptr)
-	{
-		Mesh->AlwaysLoadOnClient = true;
-		Mesh->AlwaysLoadOnServer = true;
-		Mesh->bOwnerNoSee = false;
-		Mesh->bCastDynamicShadow = true;
-		Mesh->bAffectDynamicIndirectLighting = true;
-		Mesh->PrimaryComponentTick.TickGroup = TG_PrePhysics;
-		static FName MeshCollisionProfileName(TEXT("CharacterMesh"));
-		Mesh->SetCollisionProfileName(MeshCollisionProfileName);
-		Mesh->SetGenerateOverlapEvents(false);
-		Mesh->SetCanEverAffectNavigation(false);
-	}
+	// Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	// if (Mesh != nullptr)
+	// {
+		// Mesh->AlwaysLoadOnClient = true;
+		// Mesh->AlwaysLoadOnServer = true;
+		// Mesh->bOwnerNoSee = false;
+		// Mesh->bCastDynamicShadow = true;
+		// Mesh->bAffectDynamicIndirectLighting = true;
+		// Mesh->PrimaryComponentTick.TickGroup = TG_PrePhysics;
+		// static FName MeshCollisionProfileName(TEXT("CharacterMesh"));
+		// Mesh->SetCollisionProfileName(MeshCollisionProfileName);
+		// Mesh->SetGenerateOverlapEvents(false);
+		// Mesh->SetCanEverAffectNavigation(false);
+		// Mesh->SetRelativeLocation(FVector::ZeroVector);
+	// }
 }
 
 void ASquare::BeginPlay()

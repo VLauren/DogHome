@@ -16,8 +16,11 @@ protected:
 		class UBoxComponent* Box;
 
 public:	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-		class UStaticMeshComponent* Mesh;
+	// UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+		// class UStaticMeshComponent* Mesh;
+
+	int GridPosX;
+	int GridPosY;
 
 	ASquare();
 
