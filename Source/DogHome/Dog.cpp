@@ -108,14 +108,30 @@ void ADog::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ADog::Jump);
 }
 
+void ADog::DisableMove()
+{
+	disabledInput = true;
+}
+
+void ADog::EnableMove()
+{
+	disabledInput = false;
+}
+
 void ADog::MoveForward(float AxisValue)
 {
+	if (disabledInput)
+		return;
+
 	if (Movement && (Movement->UpdatedComponent == RootComponent))
 		Movement->AddInputVector(FRotator(0, GetControlRotation().Yaw, 0).RotateVector(FVector(1, 0, 0)) * AxisValue);
 }
 
 void ADog::MoveRight(float AxisValue)
 {
+	if (disabledInput)
+		return;
+
 	if (Movement && (Movement->UpdatedComponent == RootComponent))
 		Movement->AddInputVector(FRotator(0, GetControlRotation().Yaw, 0).RotateVector(FVector(0, 1, 0)) * AxisValue);
 

@@ -6,6 +6,16 @@
 #include "GameFramework/Pawn.h"
 #include "Squirrel.generated.h"
 
+UENUM()
+enum class ESquirrelState : uint8
+{
+	START,
+	CHASE_BALL,
+	FOLLOW_PATH,
+	WAIT_DOG,
+	RUN_AWAY
+};
+
 UCLASS()
 class DOGHOME_API ASquirrel : public APawn
 {
@@ -18,6 +28,8 @@ public:
 private:
 	int routeIndex;
 	float frameCount;
+	FVector BallPosition;
+	AActor* Ball;
 
 protected:
 	// Called when the game starts or when spawned
@@ -34,10 +46,14 @@ public:
 	UPROPERTY(EditAnywhere, Category = MovementValues)
 		float MovementSpeed;
 
+	// State
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		ESquirrelState State;
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	UFUNCTION(BlueprintCallable)
+		void StartChaseBall(FVector position, AActor* ball);
 
 };

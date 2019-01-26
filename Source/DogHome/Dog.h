@@ -11,6 +11,10 @@ class DOGHOME_API ADog : public APawn
 {
 	GENERATED_BODY()
 
+private:
+
+	bool disabledInput;
+
 public:
 
 	static ADog* Instance;
@@ -58,6 +62,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UFUNCTION(BlueprintCallable)
+		void DisableMove();
+	UFUNCTION(BlueprintCallable)
+		void EnableMove();
 
 private:
 	// Input methods

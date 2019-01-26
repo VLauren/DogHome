@@ -2,6 +2,7 @@
 #include "Squirrel.h"
 #include "SquirrelMovement.h"
 #include "HomeSquare.h"
+#include "Dog.h"
 #include "Components/BoxComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 
@@ -55,32 +56,62 @@ void ASquirrel::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	frameCount += DeltaTime * 60;
-	if (frameCount < 60)
-		return;
+	// frameCount += DeltaTime * 60;
+	// if (frameCount < 60)
+		// return;
 
-	// Si es el final me paro
-	if (routeIndex < AHomeSquare::SquirrelPath.Num())
+	if (State == ESquirrelState::START)
 	{
-		// Me muevo hacia el siguiente punto
-		FVector destination = AHomeSquare::GetSquareLocation(AHomeSquare::SquirrelPath[routeIndex].X, AHomeSquare::SquirrelPath[routeIndex].Y);
-		Movement->Move(DeltaTime, destination);
-
-		// Si he llegado, aumento el indice
-		if (FVector::Distance(GetActorLocation(), destination) < 200)
-			routeIndex++;
-
-		// UE_LOG(LogTemp, Warning, TEXT("Tick distance:%f"), FVector::Distance(GetActorLocation(), destination))
+		// Nada
 	}
+	else if (State == ESquirrelState::CHASE_BALL)
+	{
+		Movement->Move(DeltaTime, BallPosition);
+		UE_LOG(LogTemp, Warning, TEXT("Tick distance:%f"), FVector::Distance(GetActorLocation(), BallPosition));
 
+		if (FVector::Distance(GetActorLocation(), BallPosition) < 80)
+		{
+		UE_LOG(LogTemp, Warning, TEXT("AAAAAAAAAAAA"));
+			// Ball->Destroy();
+			State = ESquirrelState::FOLLOW_PATH;
+			ADog::Instance->EnableMove();
+		}
+	}
+	else if (State == ESquirrelState::FOLLOW_PATH)
+	{
+		// Si es el final me paro
+		if (routeIndex < AHomeSquare::SquirrelPath.Num())
+		{
+			// Me muevo hacia el siguiente punto
+			FVector destination = AHomeSquare::GetSquareLocation(AHomeSquare::SquirrelPath[routeIndex].X, AHomeSquare::SquirrelPath[routeIndex].Y);
+			Movement->Move(DeltaTime, destination);
 
+			// Si he llegado, aumento el indice
+			if (FVector::Distance(GetActorLocation(), destination) < 200)
+				routeIndex++;
+
+			// UE_LOG(LogTemp, Warning, TEXT("Tick distance:%f"), FVector::Distance(GetActorLocation(), destination))
+		}
+		else
+		{
+			State = ESquirrelState::WAIT_DOG;
+		}
+	}
+	else if (State == ESquirrelState::WAIT_DOG)
+	{
+
+	}
+	else if (State == ESquirrelState::RUN_AWAY)
+	{
+
+	}
 
 }
 
-// Called to bind functionality to input
-void ASquirrel::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ASquirrel::StartChaseBall(FVector position, AActor* ball)
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	State = ESquirrelState::CHASE_BALL;
+	BallPosition = position;
+	Ball = ball;
 }
 
