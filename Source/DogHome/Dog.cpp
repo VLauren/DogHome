@@ -1,5 +1,6 @@
 #include "Dog.h"
 #include "DogMovement.h"
+#include "Squirrel.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Camera/CameraComponent.h"
@@ -89,6 +90,12 @@ void ADog::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	UE_LOG(LogTemp, Warning, TEXT("Dist squirrel:%f"), FVector::Distance(ASquirrel::Instance->GetActorLocation(), GetActorLocation()));
+	if (!disabledInput && FVector::Distance(ASquirrel::Instance->GetActorLocation(), GetActorLocation()) > 1800)
+	{
+		DisableMove();
+		OnSquirrelGotAway();
+	}
 }
 
 // Called to bind functionality to input

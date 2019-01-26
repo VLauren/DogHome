@@ -7,9 +7,13 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 
+ASquirrel* ASquirrel::Instance;
+
 ASquirrel::ASquirrel()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	Instance = this;
 
 	CollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("CollisionBox"));
 	CollisionBox->InitBoxExtent(FVector(50, 50, 50));

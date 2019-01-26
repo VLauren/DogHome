@@ -43,6 +43,9 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 		class USquirrelMovement* Movement;
 public:	
+
+	static ASquirrel* Instance;
+
 	UPROPERTY(EditAnywhere, Category = MovementValues)
 		float MovementSpeed;
 
