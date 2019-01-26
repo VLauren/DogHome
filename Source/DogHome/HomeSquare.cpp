@@ -1,6 +1,7 @@
 
 #include "HomeSquare.h"
 #include "Components/BoxComponent.h"
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 TArray<FIntPoint> AHomeSquare::SquirrelPath;
 AHomeSquare* AHomeSquare::Instance;
@@ -14,7 +15,12 @@ AHomeSquare::AHomeSquare()
 
 void AHomeSquare::StartNight()
 {
-
+	TArray<AActor*> squares;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASquare::StaticClass(), squares);
+	for (int i = 0; i < squares.Num(); i++)
+	{
+		Cast<ASquare>(squares[i])->OnNight();
+	}
 }
 
 void AHomeSquare::BeginPlay()
@@ -130,7 +136,6 @@ void AHomeSquare::BeginPlay()
 				else
 					randomRot = (-FVector::RightVector).Rotation();
 			}
-
 
 			FActorSpawnParameters Params;
 			int index;
