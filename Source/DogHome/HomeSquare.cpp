@@ -21,6 +21,7 @@ void AHomeSquare::StartNight()
 	{
 		Cast<ASquare>(squares[i])->OnNight();
 	}
+	OnNight();
 }
 
 void AHomeSquare::BeginPlay()
