@@ -42,3 +42,12 @@ void USquirrelMovement::Move(float DeltaTime, FVector Destination)
 		UpdatedComponent->GetOwner()->SetActorRotation(CurrentRotation);
 	}
 }
+
+void USquirrelMovement::RotateTowards(float DeltaTime, FVector Destination)
+{
+	// Movement rotation
+	FRotator ctrlRot = (Destination - GetOwner()->GetActorLocation()).Rotation();
+	CurrentRotation = FMath::Lerp(CurrentRotation, ctrlRot, 0.1f);
+	UpdatedComponent->GetOwner()->SetActorRotation(CurrentRotation);
+}
+

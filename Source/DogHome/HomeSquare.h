@@ -6,6 +6,7 @@
 #include "HomeSquare.generated.h"
 
 static const int MAP_SIZE = 50;
+static const int SQUIRREL_PATH_LENGTH = 3;
 
 UCLASS()
 class DOGHOME_API AHomeSquare : public ASquare

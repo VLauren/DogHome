@@ -24,4 +24,5 @@ protected:
 		
 public:
 	void Move(float DeltaTime, FVector Destination);
+	void RotateTowards(float DeltaTime, FVector Destination);
 };

@@ -73,7 +73,7 @@ void AHomeSquare::BeginPlay()
 			startX = endX; startY = endY;
 
 			// Punto de la ruta de la ardilla
-			if (!squirrelPathDone)
+			if (!squirrelPathDone && SquirrelPath.Num() < SQUIRREL_PATH_LENGTH)
 				SquirrelPath.Add(FIntPoint(startX, startY));
 
 		}

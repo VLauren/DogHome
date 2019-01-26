@@ -4,6 +4,7 @@
 #include "HomeSquare.h"
 #include "Dog.h"
 #include "Components/BoxComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 
 ASquirrel::ASquirrel()
@@ -67,15 +68,21 @@ void ASquirrel::Tick(float DeltaTime)
 	else if (State == ESquirrelState::CHASE_BALL)
 	{
 		Movement->Move(DeltaTime, BallPosition);
-		UE_LOG(LogTemp, Warning, TEXT("Tick distance:%f"), FVector::Distance(GetActorLocation(), BallPosition));
 
-		if (FVector::Distance(GetActorLocation(), BallPosition) < 80)
-		{
-		UE_LOG(LogTemp, Warning, TEXT("AAAAAAAAAAAA"));
+		// if (FVector::Distance(GetActorLocation(), BallPosition) < 80)
+		// {
+			// Ball->RemoveFromRoot();
 			// Ball->Destroy();
-			State = ESquirrelState::FOLLOW_PATH;
-			ADog::Instance->EnableMove();
-		}
+
+			// TArray<UStaticMeshComponent*> Meshes;
+			// Ball->GetComponents<UStaticMeshComponent>(Meshes);
+			// Meshes[0]->SetVisibility(false);
+
+			// Cast<UStaticMeshComponent>(Ball->GetComponentByClass(UStaticMeshComponent::StaticClass()))->SetVisibility(false);
+
+			// State = ESquirrelState::FOLLOW_PATH;
+			// ADog::Instance->EnableMove();
+		// }
 	}
 	else if (State == ESquirrelState::FOLLOW_PATH)
 	{
@@ -99,7 +106,7 @@ void ASquirrel::Tick(float DeltaTime)
 	}
 	else if (State == ESquirrelState::WAIT_DOG)
 	{
-
+		Movement->RotateTowards(DeltaTime, ADog::Instance->GetActorLocation());
 	}
 	else if (State == ESquirrelState::RUN_AWAY)
 	{
