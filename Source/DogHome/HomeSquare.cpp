@@ -115,23 +115,42 @@ void AHomeSquare::BeginPlay()
 		for (int j = 0; j < MAP_SIZE; j++)
 		{
 			FVector loc = GetSquareLocation(i, j);
+			FRotator randomRot;
+			if (FMath::RandRange(0, 1) == 0)
+			{
+				if (FMath::RandRange(0, 1) == 0)
+					randomRot = FVector::ForwardVector.Rotation();
+				else
+					randomRot = (-FVector::ForwardVector).Rotation();
+			}
+			else
+			{
+				if (FMath::RandRange(0, 1) == 0)
+					randomRot = FVector::RightVector.Rotation();
+				else
+					randomRot = (-FVector::RightVector).Rotation();
+			}
+
 
 			FActorSpawnParameters Params;
 			int index;
 
 			// Path
 			if (Map[i * MAP_SIZE + j] == 1 && PathSquareA != nullptr)
-				GetWorld()->SpawnActor<ASquare>(PathSquareA, loc, FRotator::ZeroRotator, Params);
+				GetWorld()->SpawnActor<ASquare>(PathSquareA, loc, randomRot, Params);
+				// GetWorld()->SpawnActor<ASquare>(PathSquareA, loc, FRotator::ZeroRotator, Params);
 
 			// Block
 			index = FMath::RandRange(0, BlockSquares.Num() - 1);
 			if (Map[i * MAP_SIZE + j] == 2 && BlockSquares[index] != nullptr)
-				GetWorld()->SpawnActor<ASquare>(BlockSquares[index], loc, FRotator::ZeroRotator, Params);
+				GetWorld()->SpawnActor<ASquare>(BlockSquares[index], loc, randomRot, Params);
+				// GetWorld()->SpawnActor<ASquare>(BlockSquares[index], loc, FRotator::ZeroRotator, Params);
 
 			// Pass
 			index = FMath::RandRange(0, PassSquares.Num() - 1);
 			if (Map[i * MAP_SIZE + j] == 3 && PassSquares[index] != nullptr)
-				GetWorld()->SpawnActor<ASquare>(PassSquares[index], loc, FRotator::ZeroRotator, Params);
+				GetWorld()->SpawnActor<ASquare>(PassSquares[index], loc, randomRot, Params);
+				// GetWorld()->SpawnActor<ASquare>(PassSquares[index], loc, FRotator::ZeroRotator, Params);
 
 			// UE_LOG(LogTemp, Warning, TEXT("Spawn A at (%d,%d) "), i, j);
 			// UE_LOG(LogTemp, Warning, TEXT("Test %d"), FMath::RandRange(0, 3));
@@ -160,7 +179,7 @@ void AHomeSquare::Path(int startX, int startY, int length, int direction, int & 
 	{
 		for (int i = 0; i < length; i++)
 		{
-			if ((startX + i) * MAP_SIZE + startY < Map.Num())
+			if ((startX + i) * MAP_SIZE + startY < Map.Num() && !(startX + i == GridPosX && startY == GridPosY))
 				Map[(startX + i) * MAP_SIZE + startY] = 1;
 		}
 
@@ -171,7 +190,7 @@ void AHomeSquare::Path(int startX, int startY, int length, int direction, int & 
 	{
 		for (int i = 0; i < length; i++)
 		{
-			if (startX * MAP_SIZE + startY + i < Map.Num())
+			if (startX * MAP_SIZE + startY + i < Map.Num() && !(startX == GridPosX && startY + i == GridPosY))
 				Map[startX * MAP_SIZE + startY + i] = 1;
 		}
 
@@ -182,7 +201,7 @@ void AHomeSquare::Path(int startX, int startY, int length, int direction, int & 
 	{
 		for (int i = 0; i < length; i++)
 		{
-			if ((startX - i) * MAP_SIZE + startY < Map.Num())
+			if ((startX - i) * MAP_SIZE + startY < Map.Num() && !(startX - i == GridPosX && startY == GridPosY))
 				Map[(startX - i) * MAP_SIZE + startY] = 1;
 		}
 
@@ -193,7 +212,7 @@ void AHomeSquare::Path(int startX, int startY, int length, int direction, int & 
 	{
 		for (int i = 0; i < length; i++)
 		{
-			if (startX * MAP_SIZE + startY - i < Map.Num())
+			if (startX * MAP_SIZE + startY - i < Map.Num() && !(startX == GridPosX && startY - i == GridPosY))
 				Map[startX * MAP_SIZE + startY - i] = 1;
 		}
 

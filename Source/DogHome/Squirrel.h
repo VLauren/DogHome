@@ -48,6 +48,12 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = MovementValues)
 		float MovementSpeed;
+	UPROPERTY(EditAnywhere, Category = MovementValues)
+		float NormalMovementSpeed;
+	UPROPERTY(EditAnywhere, Category = MovementValues)
+		float SlowMovementSpeed;
+	UPROPERTY(EditAnywhere, Category = MovementValues)
+		float FastMovementSpeed;
 
 	// State
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

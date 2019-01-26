@@ -47,6 +47,9 @@ ASquirrel::ASquirrel()
 	Movement->UpdatedComponent = RootComponent;
 
 	MovementSpeed = 250.0f;
+	NormalMovementSpeed = 250.0f;
+	FastMovementSpeed = 400.0f;
+	SlowMovementSpeed = 200.0f;
 }
 
 // Called when the game starts or when spawned
@@ -102,6 +105,9 @@ void ASquirrel::Tick(float DeltaTime)
 				routeIndex++;
 
 			// UE_LOG(LogTemp, Warning, TEXT("Tick distance:%f"), FVector::Distance(GetActorLocation(), destination))
+
+			float dist = FVector::Distance(ADog::Instance->GetActorLocation(), GetActorLocation());
+			//if(dist < )
 		}
 		else
 		{

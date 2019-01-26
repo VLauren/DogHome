@@ -1,6 +1,10 @@
 
 #pragma once
 
+// https://www.fmod.com/docs/api/content/generated/engine_ue4/getting_started.html
+// https://docs.unrealengine.com/en-us/Engine/Sequencer/HowTo/TracksFade
+
+
 #include "CoreMinimal.h"
 #include "Square.h"
 #include "HomeSquare.generated.h"
