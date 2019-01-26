@@ -90,7 +90,7 @@ void ADog::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	UE_LOG(LogTemp, Warning, TEXT("Dist squirrel:%f"), FVector::Distance(ASquirrel::Instance->GetActorLocation(), GetActorLocation()));
+	// UE_LOG(LogTemp, Warning, TEXT("Dist squirrel:%f"), FVector::Distance(ASquirrel::Instance->GetActorLocation(), GetActorLocation()));
 	if (!disabledInput && FVector::Distance(ASquirrel::Instance->GetActorLocation(), GetActorLocation()) > 1800)
 	{
 		DisableMove();

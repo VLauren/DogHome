@@ -37,6 +37,8 @@ void AHomeSquare::BeginPlay()
 	bool squirrelPathDone = false;
 	SquirrelPath.Reset();
 
+	int startDir = FMath::RandRange(0, 2);
+
 	// while (!pathDone)
 	for (int i = 0; i < 5; i++)
 	{
@@ -48,10 +50,11 @@ void AHomeSquare::BeginPlay()
 
 		int endX, endY, dir;
 		Path(startX, startY, 3, 3, endX, endY);
-		dir = 1;
+		// dir = 1;
 
 		// HACK
-		dir = i % 3; if (dir > 2)dir -= 3; if (dir < 0) dir += 3;
+		dir = startDir + i % 3; if (dir > 2)dir -= 3; if (dir < 0) dir += 3;
+		if (dir == 2) dir++;
 
 		Path(startX, startY, 3, dir, endX, endY);
 		startX = endX; startY = endY;
