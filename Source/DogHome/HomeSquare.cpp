@@ -12,6 +12,11 @@ AHomeSquare::AHomeSquare()
 	Map.Init(2, MAP_SIZE * MAP_SIZE);
 }
 
+void AHomeSquare::StartNight()
+{
+
+}
+
 void AHomeSquare::BeginPlay()
 {
 	Super::BeginPlay();

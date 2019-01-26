@@ -118,6 +118,11 @@ void ADog::EnableMove()
 	disabledInput = false;
 }
 
+void ADog::StartNight()
+{
+
+}
+
 void ADog::MoveForward(float AxisValue)
 {
 	if (disabledInput)

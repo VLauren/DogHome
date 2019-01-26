@@ -67,6 +67,8 @@ public:
 		void DisableMove();
 	UFUNCTION(BlueprintCallable)
 		void EnableMove();
+	UFUNCTION(BlueprintCallable)
+		void StartNight();
 
 	UFUNCTION(BlueprintImplementableEvent, Category = CppEvents)
 		void OnSquirrelGotAway();

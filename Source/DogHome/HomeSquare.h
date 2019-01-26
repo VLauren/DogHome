@@ -29,6 +29,9 @@ public:
 
 	AHomeSquare();
 
+	UFUNCTION(BlueprintCallable)
+		void StartNight();
+
 protected:
 	virtual void BeginPlay() override;
 
