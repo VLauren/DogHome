@@ -13,6 +13,9 @@ class DOGHOME_API AHomeSquare : public ASquare
 	GENERATED_BODY()
 	
 public:
+	static AHomeSquare* Instance;
+	static TArray<FIntPoint> SquirrelPath;
+
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<class ASquare> PathSquareA;
 
@@ -28,11 +31,11 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-	FVector GetSquareLocation(int i, int j);
-
 	void Path(int startX, int startY, int length, int direction, int& endX, int& endY);
 
 public:	
+	static FVector GetSquareLocation(int i, int j);
+
 	virtual void Tick(float DeltaTime) override;
 
 };

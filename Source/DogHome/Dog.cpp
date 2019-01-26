@@ -66,7 +66,7 @@ ADog::ADog()
 	Movement->UpdatedComponent = RootComponent;
 
 	// Default values
-	MovementSpeed = 300.0f;
+	MovementSpeed = 250.0f;
 	RotationLerpSpeed = 0.1f;
 	JumpStrength = 7;
 	GravityStrength = 20.0f;

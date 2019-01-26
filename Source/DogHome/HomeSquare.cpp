@@ -2,6 +2,9 @@
 #include "HomeSquare.h"
 #include "Components/BoxComponent.h"
 
+TArray<FIntPoint> AHomeSquare::SquirrelPath;
+AHomeSquare* AHomeSquare::Instance;
+
 AHomeSquare::AHomeSquare()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -12,6 +15,8 @@ AHomeSquare::AHomeSquare()
 void AHomeSquare::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Instance = this;
 
 	GridPosX = MAP_SIZE / 2;
 	GridPosY = MAP_SIZE / 2;
@@ -24,12 +29,17 @@ void AHomeSquare::BeginPlay()
 	UE_LOG(LogTemp, Warning, TEXT("Size: %d, HomeSquare: (%d,%d) "), MAP_SIZE, GridPosX, GridPosY);
 
 	// Camino
-	bool pathDone = false;
+	bool squirrelPathDone = false;
+	SquirrelPath.Reset();
+
 	// while (!pathDone)
 	for (int i = 0; i < 5; i++)
 	{
 		int startX = GridPosX + 1;
 		int startY = GridPosY;
+
+		if (!squirrelPathDone)
+			SquirrelPath.Add(FIntPoint(startX, startY));
 
 		int endX, endY, dir;
 		Path(startX, startY, 3, 3, endX, endY);
@@ -40,6 +50,10 @@ void AHomeSquare::BeginPlay()
 
 		Path(startX, startY, 3, dir, endX, endY);
 		startX = endX; startY = endY;
+
+		if (!squirrelPathDone)
+			SquirrelPath.Add(FIntPoint(startX, startY));
+
 		for (int i = 0; i < 8; i++)
 		{
 			// Giro derecha/izquierda
@@ -57,10 +71,13 @@ void AHomeSquare::BeginPlay()
 			// Siguiente recta
 			Path(startX, startY, 3, dir, endX, endY);
 			startX = endX; startY = endY;
+
+			// Punto de la ruta de la ardilla
+			if (!squirrelPathDone)
+				SquirrelPath.Add(FIntPoint(startX, startY));
+
 		}
-
-
-		pathDone = true;
+		squirrelPathDone = true;
 	}
 
 	// Lo que no sea camino ni inicio
@@ -123,12 +140,10 @@ void AHomeSquare::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-
-
 FVector AHomeSquare::GetSquareLocation(int i, int j)
 {
-	float length = Box->GetScaledBoxExtent().X * 2;
-	return FVector((i - GridPosX) * length, (j - GridPosX) * length, 0);
+	float length = Instance->Box->GetScaledBoxExtent().X * 2;
+	return FVector((i - Instance->GridPosX) * length, (j - Instance->GridPosX) * length, 0);
 }
 
 void AHomeSquare::Path(int startX, int startY, int length, int direction, int & endX, int & endY)
