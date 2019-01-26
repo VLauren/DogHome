@@ -68,6 +68,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void EnableMove();
 
+	UFUNCTION(BlueprintImplementableEvent, Category = CppEvents)
+		void OnSquirrelGotAway();
+	// UFUNCTION(BlueprintImplementableEvent, Category = CppEvents)
+		// void OnTimeOut();
+
 private:
 	// Input methods
 	void MoveForward(float AxisValue);
