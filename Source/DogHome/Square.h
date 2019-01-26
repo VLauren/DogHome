@@ -30,4 +30,8 @@ protected:
 public:	
 	virtual void Tick(float DeltaTime) override;
 
+	// Events
+	UFUNCTION(BlueprintImplementableEvent, Category = CppEvents)
+		void OnNight();
+
 };

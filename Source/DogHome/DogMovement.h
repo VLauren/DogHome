@@ -21,6 +21,7 @@ private:
 	int32 JustJumped;
 	FRotator CurrentRotation;
 
+	bool isMoving;
 
 protected:
 	bool UseGravity = true;
@@ -34,6 +35,9 @@ public:
 		virtual bool IsGrounded();
 
 	void Jump();
+
+	UFUNCTION(BlueprintPure)
+		bool IsMoving();
 
 private:
 	bool CheckGroundedAtPosition(FVector Position);

@@ -18,6 +18,8 @@ void UDogMovement::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	isMoving = false;
+
 	if (IsGrounded() || !UseGravity)
 	{
 		ZVel = 0.0f;
@@ -49,6 +51,8 @@ void UDogMovement::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 	{
 		FHitResult Hit;
 		SafeMoveUpdatedComponent(Move, UpdatedComponent->GetComponentRotation(), true, Hit);
+		if (!InputVector.IsNearlyZero())
+			isMoving = true;
 
 		// If it hits something, it slides along its surface
 		if (Hit.IsValidBlockingHit())
@@ -110,4 +114,9 @@ void UDogMovement::Jump()
 	UseGravity = true;
 	ZVel = Dog->JumpStrength;
 	JustJumped = 4;
+}
+
+bool UDogMovement::IsMoving()
+{
+	return isMoving;
 }
