@@ -83,6 +83,7 @@ void ADog::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	StartPos = GetActorLocation();
 }
 
 // Called every frame
@@ -91,10 +92,21 @@ void ADog::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	// UE_LOG(LogTemp, Warning, TEXT("Dist squirrel:%f"), FVector::Distance(ASquirrel::Instance->GetActorLocation(), GetActorLocation()));
-	if (!disabledInput && FVector::Distance(ASquirrel::Instance->GetActorLocation(), GetActorLocation()) > 1800)
+
+	// Ardilla se escapa
+	if (!IsNight && !disabledInput && FVector::Distance(ASquirrel::Instance->GetActorLocation(), GetActorLocation()) > 1800)
 	{
 		DisableMove();
 		OnSquirrelGotAway();
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT("Tick distance:%f"), FVector::Distance(ADog::Instance->GetActorLocation(), StartPos));
+
+	// Llegar a casa de noche
+	if (IsNight && FVector::Distance(StartPos, GetActorLocation()) < 500 && !End)
+	{
+		OnArriveHome();
+		End = true;
 	}
 }
 
@@ -127,7 +139,7 @@ void ADog::EnableMove()
 
 void ADog::StartNight()
 {
-
+	IsNight = true;
 }
 
 void ADog::MoveForward(float AxisValue)

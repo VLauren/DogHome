@@ -14,6 +14,8 @@ class DOGHOME_API ADog : public APawn
 private:
 
 	bool disabledInput;
+	FVector StartPos;
+	bool End;
 
 public:
 
@@ -55,6 +57,9 @@ public:
 	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 		class USkeletalMeshComponent* Mesh;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+		bool IsNight;
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -74,6 +79,8 @@ public:
 		void OnSquirrelGotAway();
 	// UFUNCTION(BlueprintImplementableEvent, Category = CppEvents)
 		// void OnTimeOut();
+	UFUNCTION(BlueprintImplementableEvent, Category = CppEvents)
+		void OnArriveHome();
 
 private:
 	// Input methods

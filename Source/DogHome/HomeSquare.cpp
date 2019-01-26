@@ -122,6 +122,11 @@ void AHomeSquare::BeginPlay()
 		for (int j = 0; j < MAP_SIZE; j++)
 		{
 			FVector loc = GetSquareLocation(i, j);
+
+			// bloque vacio para home
+			if (i == GridPosX && j == GridPosY + 1)
+				continue;
+
 			FRotator randomRot;
 			if (FMath::RandRange(0, 1) == 0)
 			{
