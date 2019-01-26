@@ -105,9 +105,15 @@ void ASquirrel::Tick(float DeltaTime)
 				routeIndex++;
 
 			// UE_LOG(LogTemp, Warning, TEXT("Tick distance:%f"), FVector::Distance(GetActorLocation(), destination))
+			// UE_LOG(LogTemp, Warning, TEXT("Tick distance:%f"), FVector::Distance(ADog::Instance->GetActorLocation(), GetActorLocation()));
 
 			float dist = FVector::Distance(ADog::Instance->GetActorLocation(), GetActorLocation());
-			//if(dist < )
+			if (dist < 300)
+				MovementSpeed = FastMovementSpeed;
+			else if (dist > 400 && dist < 600)
+				MovementSpeed = NormalMovementSpeed;
+			else if (dist > 700)
+				MovementSpeed = SlowMovementSpeed;
 		}
 		else
 		{
