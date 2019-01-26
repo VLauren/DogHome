@@ -110,7 +110,8 @@ void ASquirrel::Tick(float DeltaTime)
 	}
 	else if (State == ESquirrelState::RUN_AWAY)
 	{
-
+		FVector destination = GetActorLocation() + (GetActorLocation() - ADog::Instance->GetActorLocation()).GetSafeNormal * 3000;
+		Movement->Move(DeltaTime, destination);
 	}
 
 }
