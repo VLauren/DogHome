@@ -25,7 +25,8 @@ void AHomeSquare::BeginPlay()
 
 	// Camino
 	bool pathDone = false;
-	while (!pathDone)
+	// while (!pathDone)
+	for (int i = 0; i < 5; i++)
 	{
 		int startX = GridPosX + 1;
 		int startY = GridPosY;
@@ -34,19 +35,26 @@ void AHomeSquare::BeginPlay()
 		Path(startX, startY, 3, 3, endX, endY);
 		dir = 1;
 
+		// HACK
+		dir = i % 3; if (dir > 2)dir -= 3; if (dir < 0) dir += 3;
+
 		Path(startX, startY, 3, dir, endX, endY);
 		startX = endX; startY = endY;
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 8; i++)
 		{
 			// Giro derecha/izquierda
-			if (FMath::RandRange(0, 1) == 0)
+			int rand = FMath::RandRange(0, 2);
+			int length =FMath::RandRange(4, 7); 
+
+			if (rand == 0)
 				dir++;
-			else
+			else if(rand == 1)
 				dir--;
 
 			if (dir < 0) dir += 4;
 			if (dir > 3) dir -= 4;
 
+			// Siguiente recta
 			Path(startX, startY, 3, dir, endX, endY);
 			startX = endX; startY = endY;
 		}
@@ -124,7 +132,10 @@ void AHomeSquare::Path(int startX, int startY, int length, int direction, int & 
 	if (direction == 0)
 	{
 		for (int i = 0; i < length; i++)
-			Map[(startX + i) * MAP_SIZE + startY] = 1;
+		{
+			if ((startX + i) * MAP_SIZE + startY < Map.Num())
+				Map[(startX + i) * MAP_SIZE + startY] = 1;
+		}
 
 		endX = startX + length;
 		endY = startY;
@@ -132,7 +143,10 @@ void AHomeSquare::Path(int startX, int startY, int length, int direction, int & 
 	else if (direction == 1)
 	{
 		for (int i = 0; i < length; i++)
-			Map[startX * MAP_SIZE + startY + i] = 1;
+		{
+			if (startX * MAP_SIZE + startY + i < Map.Num())
+				Map[startX * MAP_SIZE + startY + i] = 1;
+		}
 
 		endX = startX;
 		endY = startY + length;
@@ -140,7 +154,10 @@ void AHomeSquare::Path(int startX, int startY, int length, int direction, int & 
 	else if (direction == 2)
 	{
 		for (int i = 0; i < length; i++)
-			Map[(startX - i) * MAP_SIZE + startY] = 1;
+		{
+			if ((startX - i) * MAP_SIZE + startY < Map.Num())
+				Map[(startX - i) * MAP_SIZE + startY] = 1;
+		}
 
 		endX = startX - length;
 		endY = startY;
@@ -148,7 +165,10 @@ void AHomeSquare::Path(int startX, int startY, int length, int direction, int & 
 	else if (direction == 3)
 	{
 		for (int i = 0; i < length; i++)
-			Map[startX * MAP_SIZE + startY - i] = 1;
+		{
+			if (startX * MAP_SIZE + startY - i < Map.Num())
+				Map[startX * MAP_SIZE + startY - i] = 1;
+		}
 
 		endX = startX;
 		endY = startY - length;
