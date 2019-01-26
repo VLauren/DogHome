@@ -44,7 +44,7 @@ void AHomeSquare::BeginPlay()
 		{
 			// Giro derecha/izquierda
 			int rand = FMath::RandRange(0, 2);
-			int length =FMath::RandRange(4, 7); 
+			int length = FMath::RandRange(4, 7);
 
 			if (rand == 0)
 				dir++;
@@ -92,20 +92,24 @@ void AHomeSquare::BeginPlay()
 			FVector loc = GetSquareLocation(i, j);
 
 			FActorSpawnParameters Params;
+			int index;
 
 			// Path
 			if (Map[i * MAP_SIZE + j] == 1 && PathSquareA != nullptr)
 				GetWorld()->SpawnActor<ASquare>(PathSquareA, loc, FRotator::ZeroRotator, Params);
 
 			// Block
-			if (Map[i * MAP_SIZE + j] == 2 && A != nullptr)
-				GetWorld()->SpawnActor<ASquare>(A, loc, FRotator::ZeroRotator, Params);
+			index = FMath::RandRange(0, BlockSquares.Num() - 1);
+			if (Map[i * MAP_SIZE + j] == 2 && BlockSquares[index] != nullptr)
+				GetWorld()->SpawnActor<ASquare>(BlockSquares[index], loc, FRotator::ZeroRotator, Params);
 
 			// Pass
-			if (Map[i * MAP_SIZE + j] == 3 && B != nullptr)
-				GetWorld()->SpawnActor<ASquare>(B, loc, FRotator::ZeroRotator, Params);
+			index = FMath::RandRange(0, PassSquares.Num() - 1);
+			if (Map[i * MAP_SIZE + j] == 3 && PassSquares[index] != nullptr)
+				GetWorld()->SpawnActor<ASquare>(PassSquares[index], loc, FRotator::ZeroRotator, Params);
 
 			// UE_LOG(LogTemp, Warning, TEXT("Spawn A at (%d,%d) "), i, j);
+			// UE_LOG(LogTemp, Warning, TEXT("Test %d"), FMath::RandRange(0, 3));
 		}
 	}
 

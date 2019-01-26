@@ -15,10 +15,11 @@ class DOGHOME_API AHomeSquare : public ASquare
 public:
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<class ASquare> PathSquareA;
+
 	UPROPERTY(EditAnywhere)
-		TSubclassOf<class ASquare> A;
+		TArray<TSubclassOf<class ASquare>> BlockSquares;
 	UPROPERTY(EditAnywhere)
-		TSubclassOf<class ASquare> B;
+		TArray<TSubclassOf<class ASquare>> PassSquares;
 
 	TArray<int> Map;
 
