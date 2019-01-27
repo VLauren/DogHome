@@ -186,5 +186,6 @@ void ADog::Jump()
 		return;
 
 	Movement->Jump();
+	OnJump();
 }
 

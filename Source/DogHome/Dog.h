@@ -86,6 +86,8 @@ public:
 		// void OnTimeOut();
 	UFUNCTION(BlueprintImplementableEvent, Category = CppEvents)
 		void OnArriveHome();
+	UFUNCTION(BlueprintImplementableEvent, Category = CppEvents)
+		void OnJump();
 
 private:
 	// Input methods
