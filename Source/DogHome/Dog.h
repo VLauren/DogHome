@@ -15,7 +15,6 @@ private:
 
 	bool disabledInput;
 	FVector StartPos;
-	bool End;
 
 public:
 
@@ -59,6 +58,8 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 		bool IsNight;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+		bool End;
 
 protected:
 	virtual void BeginPlay() override;
