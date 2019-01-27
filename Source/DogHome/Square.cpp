@@ -11,6 +11,7 @@ ASquare::ASquare()
 	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("Box"));
 	Box->SetBoxExtent(FVector(300, 300, 50));
 	RootComponent = Box;
+	Box->SetVisibility(false);
 
 	// Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	// if (Mesh != nullptr)

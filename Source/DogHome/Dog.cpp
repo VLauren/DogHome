@@ -170,7 +170,7 @@ void ADog::YawInput(float Val)
 
 void ADog::Jump()
 {
-	if (!Movement->IsGrounded())
+	if (!Movement->IsGrounded() || disabledInput)
 		return;
 
 	Movement->Jump();

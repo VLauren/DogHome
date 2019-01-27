@@ -9,8 +9,6 @@
 #include "Square.h"
 #include "HomeSquare.generated.h"
 
-static const int MAP_SIZE = 50;
-static const int SQUIRREL_PATH_LENGTH = 3;
 
 UCLASS()
 class DOGHOME_API AHomeSquare : public ASquare
@@ -20,6 +18,11 @@ class DOGHOME_API AHomeSquare : public ASquare
 public:
 	static AHomeSquare* Instance;
 	static TArray<FIntPoint> SquirrelPath;
+
+	UPROPERTY(EditAnywhere)
+		int SquirrelPathLength = 3;
+	UPROPERTY(EditAnywhere)
+		int MapSize = 50;
 
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<class ASquare> PathSquareA;
