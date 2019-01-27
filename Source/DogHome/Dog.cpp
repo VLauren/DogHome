@@ -100,7 +100,7 @@ void ADog::Tick(float DeltaTime)
 		OnSquirrelGotAway();
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("Tick distance:%f"), FVector::Distance(ADog::Instance->GetActorLocation(), StartPos));
+	// UE_LOG(LogTemp, Warning, TEXT("Tick distance:%f"), FVector::Distance(ADog::Instance->GetActorLocation(), StartPos));
 
 	// Llegar a casa de noche
 	if (IsNight && FVector::Distance(StartPos, GetActorLocation()) < 500 && !End)
@@ -125,6 +125,11 @@ void ADog::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	// Actions input
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ADog::Jump);
+}
+
+void ADog::SetLockTarget(ASquirrel* target)
+{
+	LockTarget = target;
 }
 
 void ADog::DisableMove()
@@ -164,8 +169,15 @@ void ADog::MoveRight(float AxisValue)
 
 void ADog::YawInput(float Val)
 {
-	// if (LockTarget == nullptr)
+	if (LockTarget == nullptr)
+	{
 		AddControllerYawInput(Val);
+	}
+	else
+	{
+		FVector direction = ((LockTarget->GetActorLocation() - FVector(0,0, 100)) - GetActorLocation()).GetSafeNormal();
+		Controller->SetControlRotation(direction.Rotation());
+	}
 }
 
 void ADog::Jump()

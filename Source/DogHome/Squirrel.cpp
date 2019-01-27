@@ -137,5 +137,7 @@ void ASquirrel::StartChaseBall(FVector position, AActor* ball)
 	State = ESquirrelState::CHASE_BALL;
 	BallPosition = position;
 	Ball = ball;
+
+	// ADog::Instance->SetLockTarget(this);
 }
 

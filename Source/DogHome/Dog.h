@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Squirrel.h"
 #include "Dog.generated.h"
 
 UCLASS()
@@ -31,8 +32,8 @@ public:
 	UPROPERTY(EditAnywhere)
 		float StopLerpSpeed;
 
-	// UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		// ASquirrel* LockTarget;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		ASquirrel* LockTarget;
 
 
 	// Sets default values for this pawn's properties
@@ -68,6 +69,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UFUNCTION(BlueprintCallable)
+		void SetLockTarget(ASquirrel * target);
 
 	UFUNCTION(BlueprintCallable)
 		void DisableMove();

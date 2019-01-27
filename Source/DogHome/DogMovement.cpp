@@ -71,6 +71,25 @@ void UDogMovement::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 	// Ignore gravity frames
 	if (JustJumped > 0)
 		JustJumped--;
+
+
+	if (Dog->LockTarget != nullptr)
+	{
+		// Target direction
+		// FRotator Current = Dog->Controller->GetControlRotation();
+		// FRotator Target = Dog->Mesh->GetComponentRotation() + FRotator(0, 90, 0);
+		// float InputScale = Cast<APlayerController>(Dog->Controller)->InputYawScale;
+		// float DeltaYaw = (Target - Current).Yaw;
+
+		// if (DeltaYaw > 180) DeltaYaw -= 360;
+		// if (DeltaYaw < -180) DeltaYaw += 360;
+		// TODO ComposeRotator
+
+		// Auto target camera follow
+		// if (Dog->LockTarget == nullptr && FMath::Abs(DeltaYaw) > 60)
+			// MainChar->AddControllerYawInput(DeltaYaw * DeltaTime * 0.5f / InputScale);
+		//Dog->Controller->
+	}
 }
 
 bool UDogMovement::IsGrounded()
